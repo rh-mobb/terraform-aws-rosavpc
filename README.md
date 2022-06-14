@@ -6,15 +6,6 @@ This is a terraform module to create a rosa VPC that:
 * Create a VPC S3 Endpoint and configure the routes
 * Optionally peer with a transit gateway and configure the routes
 
-
-## Input
-
-Please Reference [variables.tf](./variables.tf)
-
-## Output
-
-Please Reference [output.tf](./output.tf)
-
 ## Usage
 
 **Notes: Users are responsible to create necessary routes, so the VPC/networks can reach to the necessary internet resources either [direct routing](https://docs.openshift.com/rosa/rosa_planning/rosa-sts-aws-prereqs.html#osd-aws-privatelink-firewall-prerequisites_rosa-sts-aws-prereqs) or a [proxy](https://docs.openshift.com/rosa/networking/configuring-cluster-wide-proxy.html)**

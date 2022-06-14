@@ -12,3 +12,8 @@ output rosa_vpc_id {
     description = "ROSA VPC ID"
     value = module.this.vpc_id
 }
+
+output rosa_vpc_cidr {
+    description = "ROSA VPC CIDR"
+    value = var.cidr
+}
