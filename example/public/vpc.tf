@@ -1,6 +1,5 @@
 module openshift_vpc {
-    # source = "rh-mobb/rosavpc/aws"
-    source = "../../"
+    source = "rh-mobb/rosavpc/aws"
     name = "examplevpc"
     region = "us-east-2"
     azs  = ["us-east-2a","us-east-2b","us-east-2c"]
