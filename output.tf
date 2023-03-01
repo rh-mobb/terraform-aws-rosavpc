@@ -3,6 +3,11 @@ output rosa_subnet_ids {
     value = module.this.private_subnets
 }
 
+output rosa_public_subnet_ids {
+    description = "ROSA Subnet IDs"
+    value = module.this.public_subnets
+}
+
 output rosa_subnet_cidrs {
     description = "ROSA Subnet CIDRs"
     value = var.private_subnets_cidrs

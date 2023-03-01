@@ -13,8 +13,8 @@ This is a terraform module to create a rosa VPC that:
 ## With Public Subnet and Internet Gateway
 ```
 module openshift_vpc {
-    source = "../terraform-aws-rosavpc"
-    name = "shading-private"
+    source = "rh-mobb/rosavpc/aws"
+    name = "examplerosavpc"
     region = "us-east-2"
     azs  = ["us-east-2a","us-east-2b","us-east-2c"]
     cidr = "10.0.0.0/22"
@@ -28,8 +28,8 @@ module openshift_vpc {
 
 ```
 module openshift_vpc {
-    source = "../terraform-aws-rosavpc"
-    name = "shading-private"
+    source = "rh-mobb/rosavpc/aws"
+    name = "examplerosavpc"
     region = "us-east-2"
     azs  = ["us-east-2a","us-east-2b","us-east-2c"]
     cidr = "10.0.0.0/22"
