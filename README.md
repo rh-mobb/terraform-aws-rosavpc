@@ -26,6 +26,7 @@ module openshift_vpc {
 
 ## Only With Private Subnets and Route through a Transit Gateway
 
+```
 module openshift_vpc {
     source = "../terraform-aws-rosavpc"
     name = "shading-private"
@@ -39,4 +40,4 @@ module openshift_vpc {
         dest_cidrs = [var.vpn_cidr, "192.168.0.0/24"]
     }
 }
-
+```
