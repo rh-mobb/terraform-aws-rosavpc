@@ -4,6 +4,12 @@ variable private_subnets_cidrs {
     default = ["10.0.0.0/24"]
 }
 
+variable public_subnets_cidrs {
+    description = "public subnets cidrs"
+    type        = list
+    default = ["10.0.0.0/24"]
+}
+
 variable cidr {
     description = "VPC Cidr range"
     type      = string
@@ -41,6 +47,35 @@ variable transit_gateway {
 
 variable tags {
   description = "A map of tags to add to all resources" 
+  type        = map(string)
+  default     = {}
+}
+
+variable private_subnet_tags {
+  description = "A map of tags to add to all private subnets" 
+  type        = map(string)
+  default     = {}
+}
+
+variable create_s3_vpc_endpoint {
+    type = bool
+    default = false
+}
+
+variable "single_nat_gateway" {
+  description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
+  type        = bool
+  default     = false
+}
+
+variable "enable_nat_gateway" {
+  description = "Should be true if you want to provision NAT Gateways for each of your private networks"
+  type        = bool
+  default     = false
+}
+
+variable "public_subnet_tags" {
+  description = "Additional tags for the public subnets"
   type        = map(string)
   default     = {}
 }

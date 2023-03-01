@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-}
-
 locals {
   route-list = flatten([
     for index, subnet in var.private_subnets_cidrs :[
@@ -26,10 +17,15 @@ module "this" {
 
   azs             = var.azs
   private_subnets = var.private_subnets_cidrs
+  public_subnets = var.public_subnets_cidrs
 
   enable_dns_hostnames = true
-  enable_nat_gateway = false
+  enable_nat_gateway = var.enable_nat_gateway
   enable_vpn_gateway = false
+  single_nat_gateway = var.single_nat_gateway
+
+  private_subnet_tags = var.private_subnet_tags  
+  public_subnet_tags = var.public_subnet_tags  
 
   tags = merge(
     { "Name" = var.name },
@@ -38,27 +34,12 @@ module "this" {
     
 }
 
-provider "aws" {
-  ignore_tags {
-    key_prefixes = ["kubernetes.io/"]
-  }
+module aws_vpc_endpoint {
+  source = "./s3_vpc_endpoint"
+  count = var.create_s3_vpc_endpoint ? 1 : 0
+  vpc_id = module.this.vpc_id
+  route_table_ids = module.this.private_route_table_ids
   region = var.region
-}
-
-resource "aws_vpc_endpoint" "s3" {    
-  vpc_id       = module.this.vpc_id
-  service_name = "com.amazonaws.${var.region}.s3"
-  lifecycle {
-      ignore_changes = [
-          route_table_ids,
-      ]
-  }
-}
-
-resource "aws_vpc_endpoint_route_table_association" "vpc_endpoint_association" {
-  count = length(module.this.private_route_table_ids)
-  route_table_id = module.this.private_route_table_ids[count.index]
-  vpc_endpoint_id = aws_vpc_endpoint.s3.id
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "rosa_vpc_attachement" {
