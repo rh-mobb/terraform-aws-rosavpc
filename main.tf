@@ -42,7 +42,7 @@ module aws_vpc_endpoint {
   region = var.region
 }
 
-resource "aws_ec2_transit_gateway_vpc_attachment" "rosa_vpc_attachement" {
+resource "aws_ec2_transit_gateway_vpc_attachment" "rosa_vpc_attachment" {
   count = var.transit_gateway.peer ? 1 : 0
   subnet_ids         = module.this.private_subnets
   transit_gateway_id = var.transit_gateway.transit_gateway_id
