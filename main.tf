@@ -49,7 +49,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "rosa_vpc_attachment" {
   vpc_id             = module.this.vpc_id
 }
 
-resource "aws_route" "route_to_tranasit_gateway" {
+resource "aws_route" "route_to_transit_gateway" {
   for_each = {
       for route in local.route-list : "${route.cidr}-${route.index}" => route
   }
